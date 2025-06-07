@@ -1,84 +1,75 @@
 # EffMes-Net
 
-EffMes-Net is a deepfake detection system implementing two hybrid models—MesoXception and MesoEfficient—that combine MesoNet with Xception and EfficientNetB0 respectively, to achieve robust and lightweight video forgery classification.
-
-## Description
-This repository contains code, models, and data preprocessing scripts used for our deepfake detection research. The objective is to identify forged facial content in videos using mesoscopic and semantic features extracted from multiple CNNs.
-
-## Dataset Information
-We used two publicly available datasets:
-- **UADFV Dataset** – [Kaggle Link](https://www.kaggle.com/datasets/adityakeshri9234/uadfv-dataset)
-- **DeepFake Dataset** – [GitHub Link](https://github.com/kiteco/python-youtube-code/tree/master/Deepfake-detection)
-
-Each dataset includes real and manipulated face videos. Face regions were extracted using Viola-Jones and Dlib landmarks.
-
-## Code Information
-The code includes:
-- CNN model definitions (`MesoXception`, `MesoEfficient`)
-- Data preprocessing (face extraction, alignment)
-- Training and evaluation scripts
-- Utilities for metrics and visualization (ROC, confusion matrix)
-
-## Usage Instructions
-1. **Install dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-2. **Preprocess the dataset**:
-   - Extract and align faces using `preprocess.py`
-
-3. **Train the model**:
-   ```bash
-   python train.py --model mesoXception
-   ```
-
-4. **Evaluate the model**:
-   ```bash
-   python evaluate.py --model mesoXception
-   ```
-
-## Requirements
-- Python 3.8+
-- TensorFlow / Keras
-- OpenCV
-- Dlib
-- face_recognition
-
-## Methodology
-- **Preprocessing**: Face detection and alignment using Viola-Jones and Dlib.
-- **Model**: Hybrid models combining MesoNet with either Xception or EfficientNetB0.
-- **Training**: Augmentation, dropout regularization, ADAM optimizer.
-- **Evaluation**: Comparative performance on UADFV and DeepFake datasets.
-
-## Computing Infrastructure
-- OS: Google Colab (Linux backend)
-- GPU: Tesla T4
-- RAM: ~13GB
-
-## Evaluation Method
-Comparative evaluation with:
-- Meso-4, MesoInception-4
-- Xception-raw, Xception-c40
-- Capsule Networks
-- Multi-task networks
-
-## Assessment Metrics
-- **Accuracy (ACC)**: Measures correct classification rate.
-- **AUC (Area Under ROC Curve)**: Measures model’s ability to separate real vs fake.
-
-## Limitations
-- Limited real-time applicability due to preprocessing overhead.
-- Performance may drop on unseen deepfake generation techniques.
-
-## Citation
-If using this code or models, please cite our manuscript:
-> [EffMes-Net: A Novel Deep Learning-Based Approach for Deepfake Detection Utilizing Meso-Net](DOI placeholder)
-
-## License
-This project is open-sourced under the MIT License.
-
-## Contribution Guidelines
-Feel free to fork this repository and submit pull requests. For major changes, please open an issue first to discuss what you’d like to change.
+EffMes-Net is a deepfake detection system implementing two hybrid models—**MesoXception** and **MesoEfficient**—that combine MesoNet with Xception and EfficientNetB0 respectively, to achieve robust and lightweight video forgery classification.
 
 ---
-This README fulfills PeerJ Computer Science's reproducibility and code sharing guidelines for AI applications.
+
+## Description
+
+This repository contains code, models, and data preprocessing scripts used for our deepfake detection research. The objective is to identify forged facial content in videos using mesoscopic and semantic features extracted from multiple CNNs. The project is built upon Afchar’s open-source MesoNet repository and extended with hybrid architectures.
+
+---
+
+## Dataset Information
+
+We used two publicly available datasets:
+
+- **UADFV Dataset**  
+   [Kaggle Link](https://www.kaggle.com/datasets/adityakeshri9234/uadfv-dataset)  
+  A benchmark dataset containing videos labeled as real or fake.
+
+- **DeepFake Dataset**  
+   [GitHub Link](https://github.com/kiteco/python-youtube-code/tree/master/Deepfake-detection)  
+  A dataset of real/fake face videos extracted from YouTube sources.
+
+All datasets were preprocessed using Viola-Jones face detection and Dlib facial landmark alignment.
+
+---
+
+## Code Structure
+
+EffMes-Net/
+├── Google_Colab_Notebooks/
+│ ├── EffMes-Net_UADFV_Code.ipynb
+│ └── EffMes-Net_Deepfake_Code.ipynb
+├── MesoEfficient_Code/
+│ ├── MesoEff_Classifier.py
+│ ├── MesoEff_Training.py
+│ └── MesoEff_Prediction.py
+├── MesoXception_Code/
+│ ├── MesoXcep_Classifier.py
+│ ├── MesoXcep_Training.py
+│ └── MesoXcep_Prediction.py
+└── README.md
+
+---
+
+## Requirements
+
+Make sure the following dependencies are installed:
+
+```bash
+pip install tensorflow==2.12.0
+pip install keras numpy opencv-python imageio scikit-learn matplotlib seaborn dlib face_recognition
+Tested using:
+
+OS: Ubuntu 20.04 LTS / Google Colab
+
+Hardware: NVIDIA Tesla T4 (via Colab GPU)
+
+Python: 3.10+
+
+## Usage Instructions
+
+### 1. Choose a Notebook Based on Dataset
+- `EffMes-Net_UADFV_Code.ipynb` for UADFV Dataset
+- `EffMes-Net_Deepfake_Code.ipynb` for the YouTube Dataset
+
+### 2. Upload Your Dataset to Google Drive
+- Place the dataset ZIP file (`uadfv-dataset.zip` or similar) in your Drive.
+- The notebooks will extract and prepare it automatically in Colab.
+
+### 3. Clone MesoNet Base Repo
+```bash
+git clone https://github.com/DariusAf/MesoNet.git
+cd MesoNet
