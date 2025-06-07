@@ -51,6 +51,7 @@ Make sure the following dependencies are installed:
 ```bash
 pip install tensorflow==2.12.0
 pip install keras numpy opencv-python imageio scikit-learn matplotlib seaborn dlib face_recognition
+---
 Tested using:
 
 OS: Ubuntu 20.04 LTS / Google Colab
@@ -58,6 +59,8 @@ OS: Ubuntu 20.04 LTS / Google Colab
 Hardware: NVIDIA Tesla T4 (via Colab GPU)
 
 Python: 3.10+
+
+---
 
 ## Usage Instructions
 
