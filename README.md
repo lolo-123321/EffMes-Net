@@ -60,28 +60,32 @@ pip install keras numpy opencv-python imageio scikit-learn matplotlib seaborn dl
    - EffMes-Net_UADFV_Code.ipynb for UADFV Dataset
    - EffMes-Net_Deepfake_Code.ipynb for the YouTube Dataset
 2. Upload Your Dataset to Google Drive
+
    -**For UADFV Dataset**:
    The dataset is automatically downloaded from Kaggle inside the notebook using the command:
    ```bash
    kaggle datasets download -d adityakeshri9234/uadfv-dataset
    ```
+   
    It is then unzipped and renamed as data inside the cloned MesoNet directory.
+
    -**For DeepFake Dataset**:
    Download the dataset manually from:
    https://github.com/kiteco/python-youtube-code/tree/master/Deepfake-detection
    Then upload the ZIP file to your Google Drive.
+
    The notebook will mount your Drive and extract the dataset automatically.
-3. Clone the MesoNet Base Repository
+4. Clone the MesoNet Base Repository
    ```bash
    git clone https://github.com/DariusAf/MesoNet.git
    cd MesoNet
    ```
-4. Insert Your Model Code
+5. Insert Your Model Code
    Insert the selected hybrid model into the appropriate files:
       - classifiers.py → insert classifier code.
       - example.py → insert training code.
       - predict.py → create this file and insert prediction code.
-5. Run the Pipeline in Order
+6. Run the Pipeline in Order
    ```bash
    python pipeline.py       # Preprocessing  
    python classifiers.py    # Load model  
