@@ -45,34 +45,88 @@ EffMes-Net/
 ---
 
 ## Requirements
-
-Make sure the following dependencies are installed:
-
+Make sure you install the following dependencies:
 ```bash
 pip install tensorflow==2.12.0
 pip install keras numpy opencv-python imageio scikit-learn matplotlib seaborn dlib face_recognition
----
-Tested using:
-
-OS: Ubuntu 20.04 LTS / Google Colab
-
-Hardware: NVIDIA Tesla T4 (via Colab GPU)
-
-Python: 3.10+
-
----
+```
+### Tested using:
+- **OS**: Ubuntu 20.04 LTS / Google Colab
+- **Hardware**: NVIDIA Tesla T4 (via Colab GPU)
+- **Python**: 3.10+
 
 ## Usage Instructions
+1. Choose a Notebook Based on Dataset
+   - EffMes-Net_UADFV_Code.ipynb for UADFV Dataset
+   - EffMes-Net_Deepfake_Code.ipynb for the YouTube Dataset
+2. Upload Your Dataset to Google Drive
+   -**For UADFV Dataset**:
+   The dataset is automatically downloaded from Kaggle inside the notebook using the command:
+   ```bash
+   kaggle datasets download -d adityakeshri9234/uadfv-dataset
+   ```
+   It is then unzipped and renamed as data inside the cloned MesoNet directory.
+   -**For DeepFake Dataset**:
+   Download the dataset manually from:
+   https://github.com/kiteco/python-youtube-code/tree/master/Deepfake-detection
+   Then upload the ZIP file to your Google Drive.
+   The notebook will mount your Drive and extract the dataset automatically.
+3. Clone the MesoNet Base Repository
+   ```bash
+   git clone https://github.com/DariusAf/MesoNet.git
+   cd MesoNet
+   ```
+4. Insert Your Model Code
+   Insert the selected hybrid model into the appropriate files:
+      - classifiers.py → insert classifier code.
+      - example.py → insert training code.
+      - predict.py → create this file and insert prediction code.
+5. Run the Pipeline in Order
+   ```bash
+   python pipeline.py       # Preprocessing  
+   python classifiers.py    # Load model  
+   python example.py        # Train model  
+   python predict.py        # Run prediction
+   ```
+## Methodology
+- **Face Alignment:** Extracted using face_recognition, resized and normalized.
+- **Modeling Architectures:**
+     - **MesoXception:** Combines MesoNet with pretrained Xception blocks.
+     - **MesoEfficient:** Combines MesoNet with EfficientNetB0 as a lightweight backbone.
+- **Training Strategy:** Binary classification (Real vs. Fake), softmax activation.
+- **Evaluation:**
+   - Compared with standard MesoNet.
+   - Plots and metrics included: accuracy, AUC, confusion matrix, ROC.
 
-### 1. Choose a Notebook Based on Dataset
-- `EffMes-Net_UADFV_Code.ipynb` for UADFV Dataset
-- `EffMes-Net_Deepfake_Code.ipynb` for the YouTube Dataset
+## Evaluation Metrics
+- **Accuracy (ACC)** – Correct predictions over total.
+- **Area Under Curve (AUC)** – Performance over varying thresholds.
+- **Confusion Matrix** – Detailed classification breakdown.
+- **ROC Curve** – True Positive Rate vs. False Positive Rate.
 
-### 2. Upload Your Dataset to Google Drive
-- Place the dataset ZIP file (`uadfv-dataset.zip` or similar) in your Drive.
-- The notebooks will extract and prepare it automatically in Colab.
+## Computing Infrastructure
+- **Environment:** Google Colab
+- **OS:** Linux (Ubuntu 20.04)
+- **Hardware:** GPU (Tesla T4)
+- **Libraries:** TensorFlow, Keras, OpenCV, Dlib, face_recognition
 
-### 3. Clone MesoNet Base Repo
-```bash
-git clone https://github.com/DariusAf/MesoNet.git
-cd MesoNet
+## Citations
+ ```bash
+@article{afchar2018mesonet,
+  title={MesoNet: a Compact Facial Video Forgery Detection Network},
+  author={Afchar, Darius and Nozick, Vincent and Yamagishi, Junichi and Echizen, Isao},
+  journal={2018 IEEE International Workshop on Information Forensics and Security (WIFS)},
+  pages={1--7},
+  year={2018},
+  organization={IEEE}
+}
+ ```
+## License & Contribution
+- Built on: Afchar's MesoNet GitHub.
+- License: Research & Educational Use Only.
+- Contact authors for contribution opportunities.
+
+## Limitations
+- Generalization may vary on unseen datasets outside UADFV and YouTube DeepFake.
+- Face detection may fail in poor lighting or extreme angles.
+- EfficientNetB0 is chosen for speed; higher variants (B1–B7) not tested.
